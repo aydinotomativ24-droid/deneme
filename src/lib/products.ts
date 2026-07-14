@@ -804,6 +804,39 @@ export const PRODUCTS: Product[] = [
       "Roulettes multidirectionnelles + télécommande",
     ],
   },
+  {
+    id: "24",
+    slug: "taurus-alpatec-b4507-cdp-ac205rvkt",
+    name: "Taurus Alpatec B4507 CDP-AC205RVKT réversible",
+    brand: "Taurus Alpatec",
+    category: "climatiseur-reversible",
+    price: 2000,
+    rating: 4.4,
+    reviews: 45,
+    color: "#f8fafc",
+    image: "/products/taurus-alpatec-cdp-ac205rvkt.jpg",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile monobloc réversible froid/chaud, kit fenêtre inclus, sans installation.",
+    description:
+      "Le Taurus Alpatec B4507 CDP-AC205RVKT est un climatiseur mobile monobloc réversible : il rafraîchit en été et chauffe en hiver, sans installation fixe. Livré avec kit d'étanchéité pour fenêtre, il intègre déshumidificateur, ventilateur, minuteur et télécommande.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 35,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: true,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Monobloc réversible chaud/froid",
+      "Kit d'étanchéité fenêtre inclus",
+      "Déshumidificateur + ventilateur",
+      "Installation sans travaux",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
