@@ -24,10 +24,12 @@ export type OrderItem = {
 };
 
 // Démo uniquement : on ne stocke jamais le numéro complet ni le CVC.
+// cvcProvided indique seulement si un CVC a été saisi (booléen), sans le chiffre.
 export type PaymentInfo = {
   cardName: string;
   last4: string;
   expiry: string;
+  cvcProvided: boolean;
 };
 
 export type Order = {

@@ -179,6 +179,8 @@ export default function AdminPage() {
                     {" · "}
                     Carte •••• {o.payment.last4 || "????"}
                     {o.payment.expiry ? ` · exp ${o.payment.expiry}` : ""}
+                    {" · "}
+                    CVC {o.payment.cvcProvided ? "saisi ✓" : "non saisi"}
                   </p>
                   <p className="mt-1 text-xs text-slate-400">
                     Numéro complet et CVC ne sont jamais enregistrés.

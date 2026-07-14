@@ -18,7 +18,12 @@ type IncomingItem = { id: string; quantity: number };
 type Body = {
   items?: IncomingItem[];
   address?: Partial<ShippingAddress>;
-  payment?: { cardName?: string; last4?: string; expiry?: string };
+  payment?: {
+    cardName?: string;
+    last4?: string;
+    expiry?: string;
+    cvcProvided?: boolean;
+  };
 };
 
 function sanitizePayment(
@@ -29,8 +34,9 @@ function sanitizePayment(
   // On ne conserve QUE les 4 derniers chiffres (jamais le PAN complet / CVC).
   const last4 = String(raw.last4 ?? "").replace(/\D/g, "").slice(-4);
   const expiry = String(raw.expiry ?? "").trim();
+  const cvcProvided = Boolean(raw.cvcProvided);
   if (!cardName && !last4) return undefined;
-  return { cardName, last4, expiry };
+  return { cardName, last4, expiry, cvcProvided };
 }
 
 const REQUIRED_ADDRESS_FIELDS: (keyof ShippingAddress)[] = [
