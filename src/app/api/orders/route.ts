@@ -4,6 +4,7 @@ import { salePrice } from "@/lib/pricing";
 import {
   generateOrderNumber,
   type Order,
+  type PaymentInfo,
   type ShippingAddress,
 } from "@/lib/orders";
 import { addOrder, listOrders } from "@/lib/orderStore";
@@ -17,7 +18,20 @@ type IncomingItem = { id: string; quantity: number };
 type Body = {
   items?: IncomingItem[];
   address?: Partial<ShippingAddress>;
+  payment?: { cardName?: string; last4?: string; expiry?: string };
 };
+
+function sanitizePayment(
+  raw: Body["payment"],
+): PaymentInfo | undefined {
+  if (!raw) return undefined;
+  const cardName = String(raw.cardName ?? "").trim();
+  // On ne conserve QUE les 4 derniers chiffres (jamais le PAN complet / CVC).
+  const last4 = String(raw.last4 ?? "").replace(/\D/g, "").slice(-4);
+  const expiry = String(raw.expiry ?? "").trim();
+  if (!cardName && !last4) return undefined;
+  return { cardName, last4, expiry };
+}
 
 const REQUIRED_ADDRESS_FIELDS: (keyof ShippingAddress)[] = [
   "firstName",
@@ -94,6 +108,7 @@ export async function POST(request: Request) {
       city: String(addr.city).trim(),
       country: String(addr.country).trim(),
     },
+    payment: sanitizePayment(body.payment),
     status: "confirmee",
   };
 

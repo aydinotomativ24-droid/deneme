@@ -81,6 +81,13 @@ export default function CheckoutPage() {
             city: form.city,
             country: form.country,
           },
+          // Démo : on n'envoie que le titulaire, les 4 derniers chiffres et
+          // l'expiration. Jamais le numéro complet ni le CVC.
+          payment: {
+            cardName: form.cardName,
+            last4: form.cardNumber.replace(/\D/g, "").slice(-4),
+            expiry: form.cardExpiry,
+          },
         }),
       });
       const data = (await res.json()) as { number?: string; error?: string };

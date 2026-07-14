@@ -23,6 +23,13 @@ export type OrderItem = {
   quantity: number;
 };
 
+// Démo uniquement : on ne stocke jamais le numéro complet ni le CVC.
+export type PaymentInfo = {
+  cardName: string;
+  last4: string;
+  expiry: string;
+};
+
 export type Order = {
   number: string;
   createdAt: string; // ISO date
@@ -31,6 +38,7 @@ export type Order = {
   shipping: number;
   total: number;
   address: ShippingAddress;
+  payment?: PaymentInfo;
   status: OrderStatus;
 };
 

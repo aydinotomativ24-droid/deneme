@@ -166,6 +166,26 @@ export default function AdminPage() {
                 </div>
               </div>
 
+              {o.payment && (
+                <div className="mt-4 rounded-lg bg-slate-50 p-3 text-sm">
+                  <p className="font-semibold text-slate-700">
+                    Paiement{" "}
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                      démo
+                    </span>
+                  </p>
+                  <p className="mt-1 text-slate-600">
+                    {o.payment.cardName || "—"}
+                    {" · "}
+                    Carte •••• {o.payment.last4 || "????"}
+                    {o.payment.expiry ? ` · exp ${o.payment.expiry}` : ""}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-400">
+                    Numéro complet et CVC ne sont jamais enregistrés.
+                  </p>
+                </div>
+              )}
+
               <div className="mt-4 border-t border-slate-200 pt-3 text-sm">
                 {o.items.map((item) => (
                   <div key={item.id} className="flex justify-between">
