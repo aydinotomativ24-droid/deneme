@@ -50,18 +50,39 @@ export default function CheckoutPage() {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [otpStep, setOtpStep] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
 
   const shipping =
     totalPrice >= FREE_SHIPPING_THRESHOLD || totalPrice === 0 ? 0 : 29.99;
   const grandTotal = totalPrice + shipping;
 
+  const maskedPhone = form.phone
+    ? `•••• •• ${form.phone.replace(/\D/g, "").slice(-2)}`
+    : "votre téléphone";
+
   function update<K extends keyof FormState>(key: K, value: string) {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  // Étape 1 : la validation native du formulaire s'exécute, puis on affiche
+  // l'écran de vérification par SMS (démo 3-D Secure). Aucune commande n'est
+  // encore créée à ce stade.
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) return;
+    setError(null);
+    setOtpCode("");
+    setOtpStep(true);
+  }
+
+  // Étape 2 : après saisie du code SMS (démo), on crée réellement la commande.
+  async function confirmOtp() {
+    if (items.length === 0) return;
+    if (otpCode.replace(/\D/g, "").length < 4) {
+      setError("Saisissez le code à 6 chiffres reçu par SMS.");
+      return;
+    }
     setSubmitting(true);
     setError(null);
 
@@ -130,6 +151,72 @@ export default function CheckoutPage() {
   const inputClass =
     "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-800 outline-none focus:border-brand";
   const labelClass = "mb-1 block text-sm font-medium text-slate-700";
+
+  if (otpStep) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-12">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-extrabold text-slate-900">
+              Vérification par SMS
+            </h1>
+            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+              Mode démo
+            </span>
+          </div>
+          <div className="mt-4 grid h-12 w-12 place-items-center rounded-full bg-brand/10 text-2xl">
+            🔒
+          </div>
+          <p className="mt-4 text-sm text-slate-600">
+            Pour sécuriser votre paiement, nous avons envoyé un code à 6 chiffres
+            par SMS au numéro <strong>{maskedPhone}</strong>. Saisissez-le
+            ci-dessous pour confirmer votre commande de{" "}
+            <strong>{formatEUR(grandTotal)}</strong>.
+          </p>
+
+          <label className={`${labelClass} mt-5`} htmlFor="otpCode">
+            Code de vérification
+          </label>
+          <input
+            id="otpCode"
+            inputMode="numeric"
+            autoFocus
+            placeholder="______"
+            maxLength={6}
+            className="w-full rounded-lg border border-slate-300 px-3 py-3 text-center text-2xl font-bold tracking-[0.4em] text-slate-800 outline-none focus:border-brand"
+            value={otpCode}
+            onChange={(e) =>
+              setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))
+            }
+          />
+          <p className="mt-2 text-xs text-slate-400">
+            Démo : aucun SMS n&apos;est réellement envoyé. Saisissez n&apos;importe
+            quel code à 6 chiffres (ex. 111111).
+          </p>
+
+          <button
+            type="button"
+            onClick={confirmOtp}
+            disabled={submitting}
+            className="mt-5 w-full rounded-lg bg-accent px-4 py-3 font-semibold text-white hover:bg-accent-dark disabled:opacity-60"
+          >
+            {submitting ? "Vérification..." : "Valider et payer"}
+          </button>
+          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+          <button
+            type="button"
+            onClick={() => {
+              setOtpStep(false);
+              setError(null);
+            }}
+            className="mt-3 block w-full text-center text-sm text-slate-500 hover:text-brand"
+          >
+            Retour
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -385,9 +472,7 @@ export default function CheckoutPage() {
             disabled={submitting}
             className="mt-5 w-full rounded-lg bg-accent px-4 py-3 font-semibold text-white hover:bg-accent-dark disabled:opacity-60"
           >
-            {submitting
-              ? "Validation..."
-              : `Payer ${formatEUR(grandTotal)}`}
+            {`Payer ${formatEUR(grandTotal)}`}
           </button>
           {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
           <Link
