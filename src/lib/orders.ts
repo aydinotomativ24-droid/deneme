@@ -1,5 +1,3 @@
-import type { CartItem } from "@/context/CartContext";
-
 export type ShippingAddress = {
   firstName: string;
   lastName: string;
@@ -17,10 +15,18 @@ export type OrderStatus =
   | "expediee"
   | "livree";
 
+export type OrderItem = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
 export type Order = {
   number: string;
   createdAt: string; // ISO date
-  items: Pick<CartItem, "id" | "slug" | "name" | "price" | "quantity">[];
+  items: OrderItem[];
   subtotal: number;
   shipping: number;
   total: number;
@@ -35,35 +41,11 @@ export const ORDER_STEPS: { status: OrderStatus; label: string }[] = [
   { status: "livree", label: "Livrée" },
 ];
 
-const STORAGE_KEY = "airfroid-orders";
+export function orderStatusLabel(status: OrderStatus): string {
+  return ORDER_STEPS.find((s) => s.status === status)?.label ?? status;
+}
 
 export function generateOrderNumber(): string {
   const rand = Math.floor(100000 + Math.random() * 900000);
   return `AF-${rand}`;
-}
-
-function readAll(): Order[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Order[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveOrder(order: Order): void {
-  if (typeof window === "undefined") return;
-  const all = readAll();
-  all.unshift(order);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-}
-
-export function getOrder(orderNumber: string): Order | undefined {
-  const normalized = orderNumber.trim().toUpperCase();
-  return readAll().find((o) => o.number.toUpperCase() === normalized);
-}
-
-export function getAllOrders(): Order[] {
-  return readAll();
 }

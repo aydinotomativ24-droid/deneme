@@ -6,12 +6,7 @@ import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { formatEUR } from "@/lib/format";
 import ProductImage from "@/components/ProductImage";
-import {
-  generateOrderNumber,
-  saveOrder,
-  type ShippingAddress,
-  type Order,
-} from "@/lib/orders";
+import type { ShippingAddress } from "@/lib/orders";
 
 const FREE_SHIPPING_THRESHOLD = 500;
 
@@ -53,6 +48,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const shipping =
     totalPrice >= FREE_SHIPPING_THRESHOLD || totalPrice === 0 ? 0 : 29.99;
@@ -62,40 +58,44 @@ export default function CheckoutPage() {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) return;
     setSubmitting(true);
+    setError(null);
 
-    const order: Order = {
-      number: generateOrderNumber(),
-      createdAt: new Date().toISOString(),
-      items: items.map((i) => ({
-        id: i.id,
-        slug: i.slug,
-        name: i.name,
-        price: i.price,
-        quantity: i.quantity,
-      })),
-      subtotal: totalPrice,
-      shipping,
-      total: grandTotal,
-      address: {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        email: form.email,
-        phone: form.phone,
-        address: form.address,
-        postalCode: form.postalCode,
-        city: form.city,
-        country: form.country,
-      },
-      status: "confirmee",
-    };
-
-    saveOrder(order);
-    clear();
-    router.push(`/commande/succes?order=${order.number}`);
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((i) => ({ id: i.id, quantity: i.quantity })),
+          address: {
+            firstName: form.firstName,
+            lastName: form.lastName,
+            email: form.email,
+            phone: form.phone,
+            address: form.address,
+            postalCode: form.postalCode,
+            city: form.city,
+            country: form.country,
+          },
+        }),
+      });
+      const data = (await res.json()) as { number?: string; error?: string };
+      if (!res.ok || !data.number) {
+        throw new Error(data.error ?? "Impossible d'enregistrer la commande.");
+      }
+      clear();
+      router.push(`/commande/succes?order=${data.number}`);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Une erreur est survenue lors de la commande.",
+      );
+      setSubmitting(false);
+    }
   }
 
   if (items.length === 0) {
@@ -375,6 +375,7 @@ export default function CheckoutPage() {
               ? "Validation..."
               : `Payer ${formatEUR(grandTotal)}`}
           </button>
+          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
           <Link
             href="/panier"
             className="mt-3 block text-center text-sm text-slate-500 hover:text-brand"

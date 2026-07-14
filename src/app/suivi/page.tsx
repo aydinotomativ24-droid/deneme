@@ -1,32 +1,52 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { formatEUR } from "@/lib/format";
-import { getOrder, ORDER_STEPS, type Order } from "@/lib/orders";
+import { ORDER_STEPS, type Order } from "@/lib/orders";
 
 function statusIndex(order: Order): number {
   return ORDER_STEPS.findIndex((s) => s.status === order.status);
 }
 
-type LookupResult = { order: Order | null; searched: boolean };
-
 function TrackingContent() {
   const params = useSearchParams();
-  const initial = params.get("order") ?? "";
-  const [query, setQuery] = useState(initial);
-  const [result, setResult] = useState<LookupResult>(() =>
-    initial ? { order: getOrder(initial) ?? null, searched: true } : { order: null, searched: false },
-  );
+  const [query, setQuery] = useState(params.get("order") ?? "");
+  const [order, setOrder] = useState<Order | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [searched, setSearched] = useState(false);
 
-  const { order, searched } = result;
+  async function lookup(number: string) {
+    const trimmed = number.trim();
+    if (!trimmed) return;
+    setLoading(true);
+    setSearched(true);
+    try {
+      const res = await fetch(`/api/orders/${encodeURIComponent(trimmed)}`);
+      if (res.ok) {
+        const data = (await res.json()) as { order: Order };
+        setOrder(data.order);
+      } else {
+        setOrder(null);
+      }
+    } catch {
+      setOrder(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  /* eslint-disable react-hooks/exhaustive-deps, react-hooks/set-state-in-effect */
+  useEffect(() => {
+    const initial = params.get("order");
+    if (initial) lookup(initial);
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps, react-hooks/set-state-in-effect */
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (query.trim()) {
-      setResult({ order: getOrder(query) ?? null, searched: true });
-    }
+    lookup(query);
   }
 
   const currentStep = order ? statusIndex(order) : -1;
@@ -49,20 +69,20 @@ function TrackingContent() {
         />
         <button
           type="submit"
-          className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:bg-accent-dark"
+          disabled={loading}
+          className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:bg-accent-dark disabled:opacity-60"
         >
-          Suivre
+          {loading ? "..." : "Suivre"}
         </button>
       </form>
 
-      {searched && !order && (
+      {searched && !loading && !order && (
         <div className="mt-8 rounded-xl border border-slate-200 bg-white p-6 text-center">
           <p className="text-slate-700">
             Aucune commande trouvée pour ce numéro.
           </p>
           <p className="mt-1 text-sm text-slate-500">
-            Vérifiez le numéro saisi. Le suivi n&apos;est disponible que sur
-            l&apos;appareil utilisé pour la commande.
+            Vérifiez le numéro saisi dans votre e-mail de confirmation.
           </p>
         </div>
       )}
@@ -87,7 +107,6 @@ function TrackingContent() {
               </p>
             </div>
 
-            {/* Timeline */}
             <ol className="mt-6 space-y-4">
               {ORDER_STEPS.map((step, i) => {
                 const done = i <= currentStep;

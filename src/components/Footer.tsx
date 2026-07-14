@@ -66,8 +66,14 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-4 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} AirFroid — Tous droits réservés.
+      <div className="flex flex-wrap items-center justify-center gap-3 border-t border-white/10 py-4 text-center text-xs text-slate-500">
+        <span>© {new Date().getFullYear()} AirFroid — Tous droits réservés.</span>
+        <Link href="/suivi" className="hover:text-accent">
+          Suivre ma commande
+        </Link>
+        <Link href="/admin" className="hover:text-accent">
+          Espace admin
+        </Link>
       </div>
     </footer>
   );
