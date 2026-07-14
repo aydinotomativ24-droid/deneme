@@ -23,6 +23,16 @@ function SuccessContent() {
         confirmation avec le suivi de votre livraison.
       </p>
 
+      <div className="mt-5 rounded-xl border border-brand/20 bg-brand/5 p-4 text-sm text-slate-700">
+        <p className="font-semibold text-slate-900">
+          🚚 Livraison et installation sous 3 à 7 jours
+        </p>
+        <p className="mt-1">
+          Votre climatiseur est livré et installé par nos techniciens sous 3 à 7
+          jours ouvrés. Nous vous contactons pour convenir d&apos;un rendez-vous.
+        </p>
+      </div>
+
       {orderNumber && (
         <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
           <p className="text-sm text-slate-500">Numéro de commande</p>

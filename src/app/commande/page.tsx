@@ -375,6 +375,11 @@ export default function CheckoutPage() {
             <span className="font-extrabold">{formatEUR(grandTotal)}</span>
           </div>
 
+          <p className="mt-3 rounded-lg bg-brand/5 px-3 py-2 text-xs text-slate-600">
+            🚚 Livraison et installation par nos techniciens sous 3 à 7 jours
+            ouvrés.
+          </p>
+
           <button
             type="submit"
             disabled={submitting}

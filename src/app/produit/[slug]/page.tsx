@@ -137,6 +137,14 @@ export default async function ProductPage({
             <AddToCartButton product={product} />
           </div>
 
+          <p className="mt-4 flex items-start gap-2 rounded-lg bg-brand/5 px-3 py-2 text-sm text-slate-700">
+            <span>🚚</span>
+            <span>
+              Livraison et <strong>installation par nos techniciens</strong> sous
+              3 à 7 jours ouvrés.
+            </span>
+          </p>
+
           <ul className="mt-6 grid gap-2 sm:grid-cols-2">
             {product.features.map((f) => (
               <li key={f} className="flex items-start gap-2 text-sm text-slate-700">
