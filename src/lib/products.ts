@@ -705,6 +705,39 @@ export const PRODUCTS: Product[] = [
       "Télécommande incluse",
     ],
   },
+  {
+    id: "21",
+    slug: "hisense-apc12qc",
+    name: "Hisense APC12QC",
+    brand: "Hisense",
+    category: "climatiseur-mobile",
+    price: 498,
+    rating: 4.4,
+    reviews: 77,
+    color: "#f8fafc",
+    image: "/products/hisense-apc12qc.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile 12000 BTU pour pièces jusqu'à 35 m², avec déshumidificateur.",
+    description:
+      "Le climatiseur mobile Hisense APC12QC délivre 12000 BTU pour rafraîchir les pièces jusqu'à 35 m² sans installation. Fonction déshumidificateur, mode ventilateur, minuteur et télécommande pour un confort maîtrisé au quotidien.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 35,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Installation sans travaux",
+      "Fonction déshumidificateur + ventilateur",
+      "Minuteur programmable",
+      "Fluide écologique R290",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
