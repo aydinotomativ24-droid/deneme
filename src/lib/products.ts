@@ -771,6 +771,39 @@ export const PRODUCTS: Product[] = [
       "Roulettes multidirectionnelles + télécommande",
     ],
   },
+  {
+    id: "23",
+    slug: "duux-north-dxma12-18000-btu",
+    name: "Duux North DXMA12 18000 BTU connecté",
+    brand: "Duux",
+    category: "climatiseur-mobile",
+    price: 1400,
+    rating: 4.6,
+    reviews: 58,
+    color: "#1f2937",
+    image: "/products/duux-north-dxma12.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile connecté 18000 BTU, pilotage Wi-Fi via application, pour grandes pièces.",
+    description:
+      "Le Duux North DXMA12 est un climatiseur mobile connecté de 18000 BTU, pilotable depuis l'application via Wi-Fi. Puissant pour les grandes pièces, il combine climatisation, déshumidification et ventilation avec un design élégant et un fonctionnement silencieux.",
+    specs: {
+      puissanceBtu: 18000,
+      surfaceMax: 45,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Connecté Wi-Fi + application",
+      "18000 BTU pour grandes pièces",
+      "Déshumidificateur + ventilateur",
+      "Installation sans travaux",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
