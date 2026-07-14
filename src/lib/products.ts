@@ -540,6 +540,39 @@ export const PRODUCTS: Product[] = [
       "Garantie 5 ans",
     ],
   },
+  {
+    id: "16",
+    slug: "essentielb-ecmr12b-r290",
+    name: "Essentielb ECMR12b R290",
+    brand: "Essentielb",
+    category: "climatiseur-mobile",
+    price: 458,
+    rating: 4.3,
+    reviews: 24,
+    color: "#e2e8f0",
+    image: "/products/essentielb-ecmr12b-r290.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile réversible 4-en-1 (froid, chaud, déshumidificateur, ventilateur) au fluide R290.",
+    description:
+      "Le climatiseur mobile Essentielb ECMR12b est un appareil 4-en-1 : climatisation, chauffage, déshumidification et ventilation. Puissance froid de 3,5 kW et chaud de 3,2 kW pour les pièces jusqu'à 35 m², sans installation, avec le fluide écologique R290.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 35,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: true,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "4-en-1 : froid, chaud, déshumidificateur, ventilateur",
+      "Réversible chaud/froid (3,5 kW froid · 3,2 kW chaud)",
+      "Installation sans travaux",
+      "Fluide écologique R290",
+      "Écran tactile + télécommande",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
