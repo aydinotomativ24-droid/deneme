@@ -325,7 +325,7 @@ export const PRODUCTS: Product[] = [
     name: "HTW Monobloc AAM35DA-R290",
     brand: "HTW",
     category: "climatiseur-reversible",
-    price: 229,
+    price: 458,
     rating: 4.4,
     reviews: 37,
     color: "#0ea5e9",
