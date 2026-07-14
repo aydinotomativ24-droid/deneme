@@ -837,6 +837,39 @@ export const PRODUCTS: Product[] = [
       "Roulettes multidirectionnelles + télécommande",
     ],
   },
+  {
+    id: "25",
+    slug: "airline-split-b2119",
+    name: "airLINE Split B2119",
+    brand: "airLINE",
+    category: "climatiseur-split",
+    price: 1598,
+    rating: 4.5,
+    reviews: 41,
+    color: "#f8fafc",
+    image: "/products/airline-split-b2119.jpg",
+    inStock: true,
+    shortDescription:
+      "Climatiseur split mural pour un refroidissement silencieux et performant.",
+    description:
+      "Le climatiseur split airLINE B2119 assure un refroidissement silencieux et performant grâce à son unité murale au design épuré. Idéal pour les pièces à vivre, il combine efficacité, discrétion et facilité d'utilisation.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 40,
+      classeEnergetique: "A++",
+      niveauSonore: 24,
+      reversible: false,
+      fluide: "R32",
+      garantieAns: 3,
+    },
+    features: [
+      "Unité murale silencieuse",
+      "Design épuré",
+      "Ventilation multi-vitesses",
+      "Minuteur programmable",
+      "Télécommande incluse",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
