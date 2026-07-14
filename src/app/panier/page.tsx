@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { formatEUR } from "@/lib/format";
@@ -10,35 +9,9 @@ const FREE_SHIPPING_THRESHOLD = 500;
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, totalPrice, totalItems } = useCart();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const shipping = totalPrice >= FREE_SHIPPING_THRESHOLD || totalPrice === 0 ? 0 : 29.99;
   const grandTotal = totalPrice + shipping;
-
-  async function handleCheckout() {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: items.map((i) => ({ id: i.id, quantity: i.quantity })),
-        }),
-      });
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (!res.ok || !data.url) {
-        throw new Error(data.error ?? "Impossible de créer la session de paiement.");
-      }
-      window.location.href = data.url;
-    } catch (e) {
-      setError(
-        e instanceof Error ? e.message : "Une erreur est survenue lors du paiement.",
-      );
-      setLoading(false);
-    }
-  }
 
   if (items.length === 0) {
     return (
@@ -153,16 +126,14 @@ export default function CartPage() {
             <span className="font-extrabold">{formatEUR(grandTotal)}</span>
           </div>
 
-          <button
-            onClick={handleCheckout}
-            disabled={loading}
-            className="mt-5 w-full rounded-lg bg-accent px-4 py-3 font-semibold text-white hover:bg-accent-dark disabled:opacity-60"
+          <Link
+            href="/commande"
+            className="mt-5 block w-full rounded-lg bg-accent px-4 py-3 text-center font-semibold text-white hover:bg-accent-dark"
           >
-            {loading ? "Redirection..." : "Payer maintenant"}
-          </button>
-          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+            Passer la commande
+          </Link>
           <p className="mt-3 text-center text-xs text-slate-500">
-            🔒 Paiement sécurisé via Stripe
+            🔒 Paiement sécurisé
           </p>
         </aside>
       </div>

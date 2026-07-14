@@ -41,6 +41,12 @@ export default function Header() {
           </form>
 
           <div className="flex items-center gap-4">
+            <Link
+              href="/suivi"
+              className="hidden text-sm font-medium hover:text-accent sm:inline"
+            >
+              Suivre ma commande
+            </Link>
             <Link href="/panier" className="relative flex items-center gap-2">
               <span className="text-2xl leading-none" aria-hidden>
                 🛒
