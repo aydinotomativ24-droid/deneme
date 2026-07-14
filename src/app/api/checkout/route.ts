@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getProductById } from "@/lib/products";
+import { salePrice } from "@/lib/pricing";
 
 const FREE_SHIPPING_THRESHOLD = 500;
 const SHIPPING_FEE = 29.99;
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
 
   const origin = getOrigin(request);
   const subtotal = lineItems.reduce(
-    (sum, li) => sum + li.product.price * li.quantity,
+    (sum, li) => sum + salePrice(li.product) * li.quantity,
     0,
   );
   const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
@@ -66,7 +67,7 @@ export async function POST(request: Request) {
           quantity: li.quantity,
           price_data: {
             currency: "eur",
-            unit_amount: Math.round(li.product.price * 100),
+            unit_amount: Math.round(salePrice(li.product) * 100),
             product_data: {
               name: li.product.name,
               description: li.product.shortDescription,

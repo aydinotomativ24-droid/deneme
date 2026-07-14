@@ -1,12 +1,25 @@
 type Props = {
   color: string;
+  src?: string;
   label?: string;
   className?: string;
 };
 
-// Generated illustration of a wall-mounted air conditioning unit.
-// Avoids using any third-party product photography.
-export default function ProductImage({ color, label, className }: Props) {
+// Renders a real product photo when `src` is provided, otherwise falls back to
+// a generated illustration of a wall-mounted air conditioning unit.
+export default function ProductImage({ color, src, label, className }: Props) {
+  if (src) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        alt={label ?? "Photo climatiseur"}
+        className={className}
+        loading="lazy"
+      />
+    );
+  }
+
   return (
     <svg
       viewBox="0 0 400 300"

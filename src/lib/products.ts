@@ -21,6 +21,7 @@ export type Product = {
   rating: number; // 0-5
   reviews: number;
   color: string; // used for the generated illustration
+  image?: string; // real product photo (falls back to generated illustration)
   inStock: boolean;
   shortDescription: string;
   description: string;
@@ -318,7 +319,49 @@ export const PRODUCTS: Product[] = [
       "Filtre lavable",
     ],
   },
+  {
+    id: "9",
+    slug: "htw-monobloc-aam35da-r290",
+    name: "HTW Monobloc AAM35DA-R290",
+    brand: "HTW",
+    category: "climatiseur-reversible",
+    price: 229,
+    rating: 4.4,
+    reviews: 37,
+    color: "#0ea5e9",
+    image: "/products/htw-aam35da-r290.avif",
+    inStock: true,
+    shortDescription:
+      "Climatiseur monobloc réversible sans unité extérieure, pour pièces jusqu'à 30 m².",
+    description:
+      "Le HTW AAM35DA-R290 est un climatiseur monobloc mural réversible qui ne nécessite aucune unité extérieure : idéal lorsque l'installation d'un split n'est pas possible. Puissance froid de 3,5 kW et chaud de 2,9 kW pour couvrir des pièces jusqu'à 30 m², avec le fluide écologique R290.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 30,
+      classeEnergetique: "A",
+      niveauSonore: 60,
+      reversible: true,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Monobloc sans unité extérieure",
+      "Réversible chaud/froid (3,5 kW froid · 2,9 kW chaud)",
+      "Fluide écologique R290",
+      "Classe froid A / chaud A+",
+      "Installation simplifiée",
+    ],
+  },
 ];
+
+// Promotion appliquée à tout le catalogue.
+export const PROMO = {
+  active: true,
+  rate: 0.5, // -50 %
+  label: "-50 %",
+  message: "Offre de lancement : -50 % sur tout le catalogue pendant 1 mois",
+  endsAt: "2026-08-14", // ~1 mois
+};
 
 export function getCategory(slug: string): Category | undefined {
   return CATEGORIES.find((c) => c.slug === slug);

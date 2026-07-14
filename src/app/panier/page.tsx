@@ -77,7 +77,12 @@ export default function CartPage() {
                 href={`/produit/${item.slug}`}
                 className="shrink-0 rounded-lg bg-slate-50"
               >
-                <ProductImage color={item.color} className="h-24 w-28" />
+                <ProductImage
+                  color={item.color}
+                  src={item.image}
+                  label={item.name}
+                  className="h-24 w-28 object-contain"
+                />
               </Link>
               <div className="flex flex-1 flex-col">
                 <Link

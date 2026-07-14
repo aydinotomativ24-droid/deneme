@@ -1,14 +1,15 @@
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { formatEUR } from "@/lib/format";
+import { salePrice, referencePrice, discountPercent } from "@/lib/pricing";
 import ProductImage from "./ProductImage";
 import Rating from "./Rating";
 import AddToCartButton from "./AddToCartButton";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const discount = product.oldPrice
-    ? Math.round((1 - product.price / product.oldPrice) * 100)
-    : 0;
+  const price = salePrice(product);
+  const oldPrice = referencePrice(product);
+  const discount = discountPercent(product);
 
   return (
     <div className="group flex flex-col rounded-xl border border-slate-200 bg-white overflow-hidden transition hover:shadow-lg">
@@ -28,6 +29,8 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
         <ProductImage
           color={product.color}
+          src={product.image}
+          label={product.name}
           className="h-48 w-full object-contain p-2 transition group-hover:scale-105"
         />
       </Link>
@@ -51,11 +54,11 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <div className="mt-3 flex items-end gap-2">
           <span className="text-xl font-extrabold text-slate-900">
-            {formatEUR(product.price)}
+            {formatEUR(price)}
           </span>
-          {product.oldPrice && (
+          {oldPrice && (
             <span className="mb-0.5 text-sm text-slate-400 line-through">
-              {formatEUR(product.oldPrice)}
+              {formatEUR(oldPrice)}
             </span>
           )}
         </div>

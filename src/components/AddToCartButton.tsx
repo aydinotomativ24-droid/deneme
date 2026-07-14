@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Product } from "@/lib/products";
+import { salePrice } from "@/lib/pricing";
 import { useCart } from "@/context/CartContext";
 
 type Props = {
@@ -29,8 +30,9 @@ export default function AddToCartButton({ product, compact }: Props) {
       id: product.id,
       slug: product.slug,
       name: product.name,
-      price: product.price,
+      price: salePrice(product),
       color: product.color,
+      image: product.image,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);

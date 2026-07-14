@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import Rating from "@/components/Rating";
 import AddToCartButton from "@/components/AddToCartButton";
 import { formatEUR } from "@/lib/format";
+import { salePrice, referencePrice, discountPercent } from "@/lib/pricing";
 import {
   PRODUCTS,
   getCategory,
@@ -45,9 +46,9 @@ export default async function ProductPage({
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 
-  const discount = product.oldPrice
-    ? Math.round((1 - product.price / product.oldPrice) * 100)
-    : 0;
+  const price = salePrice(product);
+  const oldPrice = referencePrice(product);
+  const discount = discountPercent(product);
 
   const specRows: [string, string][] = [
     ["Puissance frigorifique", `${product.specs.puissanceBtu.toLocaleString("fr-FR")} BTU`],
@@ -90,8 +91,9 @@ export default async function ProductPage({
           )}
           <ProductImage
             color={product.color}
+            src={product.image}
             label={product.name}
-            className="h-80 w-full"
+            className="h-80 w-full object-contain"
           />
         </div>
 
@@ -110,11 +112,11 @@ export default async function ProductPage({
 
           <div className="mt-6 flex items-end gap-3">
             <span className="text-4xl font-extrabold text-slate-900">
-              {formatEUR(product.price)}
+              {formatEUR(price)}
             </span>
-            {product.oldPrice && (
+            {oldPrice && (
               <span className="mb-1 text-lg text-slate-400 line-through">
-                {formatEUR(product.oldPrice)}
+                {formatEUR(oldPrice)}
               </span>
             )}
           </div>
