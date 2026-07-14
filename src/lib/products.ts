@@ -738,6 +738,39 @@ export const PRODUCTS: Product[] = [
       "Roulettes multidirectionnelles + télécommande",
     ],
   },
+  {
+    id: "22",
+    slug: "optimea-opc-b01-120",
+    name: "Optimea OPC-B01-120",
+    brand: "Optimea",
+    category: "climatiseur-mobile",
+    price: 458,
+    rating: 4.3,
+    reviews: 39,
+    color: "#f8fafc",
+    image: "/products/optimea-mobile.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile 12000 BTU pour pièces jusqu'à 35 m², avec déshumidificateur.",
+    description:
+      "Le climatiseur mobile Optimea OPC-B01-120 délivre 12000 BTU pour rafraîchir les pièces jusqu'à 35 m² sans installation. Fonction déshumidificateur, mode ventilateur, minuteur et télécommande pour un confort simple et efficace.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 35,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Installation sans travaux",
+      "Fonction déshumidificateur + ventilateur",
+      "Minuteur programmable",
+      "Fluide écologique R290",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
