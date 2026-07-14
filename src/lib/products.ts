@@ -639,6 +639,72 @@ export const PRODUCTS: Product[] = [
       "Idéal van, bureau, petits espaces",
     ],
   },
+  {
+    id: "19",
+    slug: "bosch-cool-2000",
+    name: "Bosch Cool 2000",
+    brand: "Bosch",
+    category: "climatiseur-mobile",
+    price: 598,
+    rating: 4.5,
+    reviews: 64,
+    color: "#f1f5f9",
+    image: "/products/bosch-cool-2000.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile Bosch pour pièces moyennes, avec déshumidificateur et minuteur.",
+    description:
+      "Le climatiseur mobile Bosch Cool 2000 rafraîchit efficacement les pièces moyennes sans installation. Fonction déshumidificateur, ventilation multi-vitesses et minuteur programmable pour un confort maîtrisé, le tout dans un design blanc épuré signé Bosch.",
+    specs: {
+      puissanceBtu: 12000,
+      surfaceMax: 34,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Installation sans travaux",
+      "Fonction déshumidificateur",
+      "Ventilation multi-vitesses",
+      "Minuteur programmable",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
+  {
+    id: "20",
+    slug: "tcl-p07f5csw0f-7000-btu",
+    name: "TCL P07F5CSW0F 7000 BTU",
+    brand: "TCL",
+    category: "climatiseur-mobile",
+    price: 398,
+    rating: 4.2,
+    reviews: 52,
+    color: "#f8fafc",
+    image: "/products/tcl-p07f5csw0f.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile 7000 BTU compact pour petites pièces jusqu'à 20 m².",
+    description:
+      "Le climatiseur mobile TCL P07F5CSW0F offre 7000 BTU pour rafraîchir les petites pièces jusqu'à 20 m² sans installation. Compact et léger, il intègre un déshumidificateur, un minuteur et une télécommande pour un usage simple au quotidien.",
+    specs: {
+      puissanceBtu: 7000,
+      surfaceMax: 20,
+      classeEnergetique: "A",
+      niveauSonore: 63,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Format compact et léger",
+      "Installation sans travaux",
+      "Fonction déshumidificateur",
+      "Minuteur programmable",
+      "Télécommande incluse",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
