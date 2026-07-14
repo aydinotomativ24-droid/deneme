@@ -573,6 +573,72 @@ export const PRODUCTS: Product[] = [
       "Écran tactile + télécommande",
     ],
   },
+  {
+    id: "17",
+    slug: "dreame-p-wind-9k-black-gold",
+    name: "Dreame P-Wind 9K Black Gold",
+    brand: "Dreame",
+    category: "climatiseur-mobile",
+    price: 398,
+    rating: 4.5,
+    reviews: 31,
+    color: "#4b5563",
+    image: "/products/dreame-p-wind-9k-black-gold.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur mobile 9000 BTU au design Black Gold, pour pièces jusqu'à 25 m².",
+    description:
+      "Le climatiseur mobile Dreame P-Wind 9K allie performance et design avec sa finition Black Gold. 9000 BTU pour rafraîchir les pièces jusqu'à 25 m² sans installation, avec déshumidificateur, ventilateur et roulettes pour un déplacement facile.",
+    specs: {
+      puissanceBtu: 9000,
+      surfaceMax: 25,
+      classeEnergetique: "A",
+      niveauSonore: 65,
+      reversible: false,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Design Black Gold",
+      "Installation sans travaux",
+      "Fonction déshumidificateur + ventilateur",
+      "Fluide écologique R290",
+      "Roulettes multidirectionnelles + télécommande",
+    ],
+  },
+  {
+    id: "18",
+    slug: "ecoflow-wave-3",
+    name: "EcoFlow Wave 3",
+    brand: "EcoFlow",
+    category: "climatiseur-mobile",
+    price: 1198,
+    rating: 4.6,
+    reviews: 48,
+    color: "#334155",
+    image: "/products/ecoflow-wave-3.webp",
+    inStock: true,
+    shortDescription:
+      "Climatiseur portable réversible froid/chaud, compatible batterie, idéal petits espaces et plein air.",
+    description:
+      "L'EcoFlow Wave 3 est un climatiseur portable réversible qui refroidit et chauffe. Compact et compatible avec une batterie additionnelle, il est idéal pour les petites pièces, bureaux, van et espaces sans installation fixe. Refroidissement rapide et pilotage via application.",
+    specs: {
+      puissanceBtu: 6100,
+      surfaceMax: 15,
+      classeEnergetique: "A",
+      niveauSonore: 55,
+      reversible: true,
+      fluide: "R290",
+      garantieAns: 2,
+    },
+    features: [
+      "Portable froid + chaud (réversible)",
+      "Compatible batterie additionnelle",
+      "Refroidissement rapide",
+      "Pilotage via application",
+      "Idéal van, bureau, petits espaces",
+    ],
+  },
 ];
 
 // Promotion appliquée à tout le catalogue.
