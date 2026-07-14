@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { formatEUR } from "@/lib/format";
 import { ORDER_STEPS, type Order } from "@/lib/orders";
+import { apiUrl } from "@/lib/apiUrl";
 
 function statusIndex(order: Order): number {
   return ORDER_STEPS.findIndex((s) => s.status === order.status);
@@ -23,7 +24,7 @@ function TrackingContent() {
     setLoading(true);
     setSearched(true);
     try {
-      const res = await fetch(`/api/orders/${encodeURIComponent(trimmed)}`);
+      const res = await fetch(apiUrl(`/api/orders/${encodeURIComponent(trimmed)}`));
       if (res.ok) {
         const data = (await res.json()) as { order: Order };
         setOrder(data.order);

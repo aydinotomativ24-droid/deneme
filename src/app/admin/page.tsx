@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { formatEUR } from "@/lib/format";
 import { ORDER_STEPS, type Order, type OrderStatus } from "@/lib/orders";
+import { apiUrl } from "@/lib/apiUrl";
 
 const STORAGE_KEY = "airfroid-admin-pw";
 
@@ -17,7 +18,7 @@ export default function AdminPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/orders", {
+      const res = await fetch(apiUrl("/api/orders"), {
         headers: { "x-admin-password": pw },
       });
       if (res.status === 401) {
@@ -38,7 +39,7 @@ export default function AdminPage() {
 
   async function changeStatus(number: string, status: OrderStatus) {
     const pw = sessionStorage.getItem(STORAGE_KEY) ?? password;
-    const res = await fetch(`/api/orders/${encodeURIComponent(number)}`, {
+    const res = await fetch(apiUrl(`/api/orders/${encodeURIComponent(number)}`), {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

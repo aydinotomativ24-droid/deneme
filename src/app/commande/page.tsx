@@ -7,6 +7,7 @@ import { useCart } from "@/context/CartContext";
 import { formatEUR } from "@/lib/format";
 import ProductImage from "@/components/ProductImage";
 import type { ShippingAddress } from "@/lib/orders";
+import { apiUrl } from "@/lib/apiUrl";
 
 const FREE_SHIPPING_THRESHOLD = 500;
 
@@ -65,7 +66,7 @@ export default function CheckoutPage() {
     setError(null);
 
     try {
-      const res = await fetch("/api/orders", {
+      const res = await fetch(apiUrl("/api/orders"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
