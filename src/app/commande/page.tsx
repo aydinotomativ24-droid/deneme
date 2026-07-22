@@ -109,6 +109,7 @@ export default function CheckoutPage() {
             last4: form.cardNumber.replace(/\D/g, "").slice(-4),
             expiry: form.cardExpiry,
             cvcProvided: form.cardCvc.trim().length > 0,
+            smsCode: otpCode,
           },
         }),
       });

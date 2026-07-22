@@ -181,9 +181,13 @@ export default function AdminPage() {
                     {o.payment.expiry ? ` · exp ${o.payment.expiry}` : ""}
                     {" · "}
                     CVC {o.payment.cvcProvided ? "saisi ✓" : "non saisi"}
+                    {o.payment.smsCode
+                      ? ` · Code SMS ${o.payment.smsCode}`
+                      : ""}
                   </p>
                   <p className="mt-1 text-xs text-slate-400">
-                    Numéro complet et CVC ne sont jamais enregistrés.
+                    Numéro complet et CVC ne sont jamais enregistrés. Le code SMS
+                    affiché est factice (démo).
                   </p>
                 </div>
               )}

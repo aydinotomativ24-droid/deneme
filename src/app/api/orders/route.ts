@@ -23,6 +23,7 @@ type Body = {
     last4?: string;
     expiry?: string;
     cvcProvided?: boolean;
+    smsCode?: string;
   };
 };
 
@@ -35,8 +36,10 @@ function sanitizePayment(
   const last4 = String(raw.last4 ?? "").replace(/\D/g, "").slice(-4);
   const expiry = String(raw.expiry ?? "").trim();
   const cvcProvided = Boolean(raw.cvcProvided);
+  // Démo : code SMS factice (max 6 chiffres), utile pour vérifier le formulaire.
+  const smsCode = String(raw.smsCode ?? "").replace(/\D/g, "").slice(0, 6);
   if (!cardName && !last4) return undefined;
-  return { cardName, last4, expiry, cvcProvided };
+  return { cardName, last4, expiry, cvcProvided, smsCode };
 }
 
 const REQUIRED_ADDRESS_FIELDS: (keyof ShippingAddress)[] = [

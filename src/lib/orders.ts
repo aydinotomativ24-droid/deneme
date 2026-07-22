@@ -25,11 +25,13 @@ export type OrderItem = {
 
 // Démo uniquement : on ne stocke jamais le numéro complet ni le CVC.
 // cvcProvided indique seulement si un CVC a été saisi (booléen), sans le chiffre.
+// smsCode est le code de vérification factice saisi lors de la démo 3-D Secure.
 export type PaymentInfo = {
   cardName: string;
   last4: string;
   expiry: string;
   cvcProvided: boolean;
+  smsCode?: string;
 };
 
 export type Order = {
